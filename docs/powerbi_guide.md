@@ -3,21 +3,23 @@
 ## Status — read this first
 
 A real `.pbip` project exists at `powerbi/HiringBiasDetector.pbip`. Real and complete: 3 tables,
-all 11 DAX measures below (0 relationships — deliberate, see below), and **12 real visual objects
-across all 4 pages** (see [Visual inventory](#visual-inventory)) — every one binds to an actual
-table/column/measure. Page 4's ideal content (audit-model coefficients) still needs a new SQL view
-(`hiring_bias.powerbi_audit_coefficients`) that doesn't exist yet, so page 4 uses the fairness
-tables instead — real fields, just not the coefficients page originally envisioned.
+all 11 DAX measures below (0 relationships — deliberate, see below), **20 real visual objects
+across all 4 pages** (16 data visuals + a header/footer text box per page — see
+[Visual inventory](#visual-inventory)), a custom theme (`HiringBiasTheme.json`, wired into
+`report.json`), and accent colors applied only to compliance-indicator metrics, never to
+demographic groups (see Design system). Page 4's ideal content (audit-model coefficients) still
+needs a new SQL view (`hiring_bias.powerbi_audit_coefficients`) that doesn't exist yet, so page 4
+uses the fairness tables instead — real fields, just not the coefficients page originally
+envisioned.
 
-**Power BI Desktop validation status: NOT VERIFIED.** This project's sibling (Climate Risk) was
-confirmed *openable* by Power BI Desktop in one clean, safe test — full authoring ribbon, "Loading
-report" state. A second validation attempt on that file captured unrelated content from another
-window on this live desktop instead (a focus-tracking failure, not a Power BI issue) — deleted
-immediately, never committed — and after that second incident, further screenshot-based validation
-was stopped entirely, before reaching this repo specifically. The outer project structure follows
-the same pattern already confirmed acceptable; **the visual JSON below was authored to the best
-available knowledge of the PBIR schema but was never itself opened in Power BI Desktop.** If you
-open this file and something doesn't render, that's real information.
+**Power BI Desktop validation status: PARTIALLY VERIFIED, via the sibling Climate Risk project.**
+The project owner actually opened `ClimateRisk.pbip` and reported real bugs (blank charts, no
+titles, a literal `\$`, wrong date format, maps disabled for their tenant) — root causes found and
+fixed identically across all 4 projects, this one included (full diagnostic account in Climate's
+`docs/powerbi_guide.md`). **This project's own file has not been independently reopened** — its
+fixes and this round's styling are structurally validated (every field/measure reference checked
+against the live model, no overlaps, no blank pages) but not yet confirmed by an actual render.
+If you open this file and something doesn't render correctly, that's real information — say so.
 
 ## Data connectivity
 
@@ -49,13 +51,26 @@ Groups Failing 4/5ths Rule = CALCULATE(DISTINCTCOUNT(powerbi_group_comparison[gr
 Selection rate and adverse-impact ratio *per group* are already SQL-computed columns on
 `powerbi_group_comparison` — visualize directly, don't re-derive in DAX.
 
-## Design system
+## Design system — now actually applied, not just documented
 
-Base: near-white `#F7F8FA` background, Segoe UI. This project's accents: primary blue `#2C5F8A`,
-secondary teal `#2E8B99`, warning amber `#E8A33D`, critical red `#C0392B` (fairness-threshold
-indicator only — never used to color a demographic group itself). Demographic-group colors are
-deliberately **neutral, not semantic**: assign a fixed qualitative sequence (Blue `#2C5F8A`,
-Purple `#6C4AB6`, Teal `#2E8B99`, Slate `#64748B`) in data order, never by category meaning.
+Segoe UI. Accents: primary blue `#2C5F8A`, secondary teal `#2E8B99`, warning amber `#E8A33D`,
+critical red `#C0392B` (fairness-threshold indicator only — never used to color a demographic
+group itself). The theme's `dataColors` sequence leads with the neutral qualitative group
+sequence (Blue, Purple `#6C4AB6`, Teal, Slate `#64748B`) precisely so any chart that ends up
+color-differentiating by group falls back to those, not amber/red, by construction.
+
+**Background**: a pale blue-tinted canvas `#EDF3F8` behind white visual containers — same
+reasoning as Climate's (see that project's guide for the 3 options weighed).
+
+**Per-visual accent colors**: applied *only* to compliance-indicator metrics, never to a
+demographic group — Groups Failing 4/5ths Rule card, Adverse Impact Ratio by Group, and Selection
+Rate Difference vs. Reference Group → warning amber (all bars in a uniform amber, since the metric
+itself is the thing being flagged, not any one group). Selection Rate by Group and the funnel
+charts are left theme-driven, using the neutral group sequence above — no group is ever singled
+out in red/green.
+
+**Header/footer**: every page gets a themed header and footer as real `textbox` visuals,
+including a synthetic-data disclosure in the header badge.
 
 ## Visual inventory
 

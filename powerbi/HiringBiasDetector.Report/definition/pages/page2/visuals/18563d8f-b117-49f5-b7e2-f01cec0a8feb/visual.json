@@ -1,0 +1,129 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "18563d8f-b117-49f5-b7e2-f01cec0a8feb",
+  "position": {
+    "x": 20,
+    "y": 440,
+    "z": 0,
+    "width": 1240,
+    "height": 240,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "group_attribute"
+                }
+              },
+              "queryRef": "GroupComparison.group_attribute",
+              "nativeQueryRef": "group_attribute"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "group_value"
+                }
+              },
+              "queryRef": "GroupComparison.group_value",
+              "nativeQueryRef": "group_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "stage"
+                }
+              },
+              "queryRef": "GroupComparison.stage",
+              "nativeQueryRef": "stage"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "selection_rate"
+                }
+              },
+              "queryRef": "GroupComparison.selection_rate",
+              "nativeQueryRef": "selection_rate"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "adverse_impact_ratio"
+                }
+              },
+              "queryRef": "GroupComparison.adverse_impact_ratio",
+              "nativeQueryRef": "adverse_impact_ratio"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "fails_four_fifths_rule"
+                }
+              },
+              "queryRef": "GroupComparison.fails_four_fifths_rule",
+              "nativeQueryRef": "fails_four_fifths_rule"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Group Comparison Detail'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "HiringBiasTheme",
+  "dataColors": [
+    "#2C5F8A",
+    "#6C4AB6",
+    "#2E8B99",
+    "#64748B",
+    "#7C93B0",
+    "#E8A33D",
+    "#C0392B",
+    "#94A3B8"
+  ],
+  "good": "#2E9E5B",
+  "neutral": "#94A3B8",
+  "bad": "#C0392B",
+  "foreground": "#1A1A2E",
+  "background": "#FFFFFF",
+  "tableAccent": "#2C5F8A",
+  "textClasses": {
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#1A1A2E"
+    },
+    "title": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1A1A2E"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#2C5F8A"
+    },
+    "callout": {
+      "fontSize": 32,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#2C5F8A"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#EDF3F8"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}
