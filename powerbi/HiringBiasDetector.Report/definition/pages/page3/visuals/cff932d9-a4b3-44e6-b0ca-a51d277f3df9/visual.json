@@ -1,11 +1,11 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "7f852414-bd22-46c9-a99c-2f99ed28d936",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "cff932d9-a4b3-44e6-b0ca-a51d277f3df9",
   "position": {
-    "x": 660,
+    "x": 20,
     "y": 60,
     "z": 0,
-    "width": 600,
+    "width": 1240,
     "height": 300,
     "tabOrder": 0
   },
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "GroupComparison.group_value",
-              "nativeQueryRef": "group_value"
+              "nativeQueryRef": "group_value",
+              "active": true
             }
           ]
         },
@@ -41,24 +42,52 @@
                       "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "adverse_impact_ratio"
+                  "Property": "rate_difference"
                 }
               },
-              "queryRef": "GroupComparison.adverse_impact_ratio",
-              "nativeQueryRef": "adverse_impact_ratio"
+              "queryRef": "GroupComparison.rate_difference",
+              "nativeQueryRef": "rate_difference"
             }
           ]
         }
       }
     },
     "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Adverse Impact Ratio by Group'"
+                  "Value": "'Selection Rate Difference vs. Reference Group'"
                 }
               }
             },

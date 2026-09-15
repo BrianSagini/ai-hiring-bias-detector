@@ -1,19 +1,19 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "09afd105-da8e-4b53-b60f-540130fe6f40",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "16079dab-1786-4d07-b81b-2dc5493d37c1",
   "position": {
     "x": 20,
-    "y": 60,
+    "y": 480,
     "z": 0,
     "width": 1240,
-    "height": 400,
+    "height": 180,
     "tabOrder": 0
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "tableEx",
     "query": {
       "queryState": {
-        "Category": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -28,11 +28,7 @@
               },
               "queryRef": "FunnelSummary.role_family",
               "nativeQueryRef": "role_family"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
+            },
             {
               "field": {
                 "Column": {
@@ -107,14 +103,14 @@
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Funnel Stage Totals by Role Family'"
+                  "Value": "'Funnel Detail'"
                 }
               }
             },

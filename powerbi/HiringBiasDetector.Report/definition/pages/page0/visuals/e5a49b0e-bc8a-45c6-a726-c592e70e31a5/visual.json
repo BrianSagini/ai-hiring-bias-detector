@@ -1,6 +1,6 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "74dc8d53-2169-4731-929c-4568e05eea68",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e5a49b0e-bc8a-45c6-a726-c592e70e31a5",
   "position": {
     "x": 20,
     "y": 200,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "FunnelSummary.role_family",
-              "nativeQueryRef": "role_family"
+              "nativeQueryRef": "role_family",
+              "active": true
             }
           ]
         },
@@ -66,6 +67,34 @@
       }
     },
     "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {

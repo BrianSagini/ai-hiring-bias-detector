@@ -1,8 +1,8 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "5195fa5f-849c-4f0c-9e8d-1c91899dd338",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "bd0c5a52-a7a1-4de0-8ac0-d283f080c869",
   "position": {
-    "x": 20,
+    "x": 740,
     "y": 60,
     "z": 0,
     "width": 220,
@@ -20,27 +20,27 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FunnelSummary"
+                      "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "Total Applications"
+                  "Property": "Groups Failing 4/5ths Rule"
                 }
               },
-              "queryRef": "FunnelSummary.Total Applications",
-              "nativeQueryRef": "Total Applications"
+              "queryRef": "GroupComparison.Groups Failing 4/5ths Rule",
+              "nativeQueryRef": "Groups Failing 4/5ths Rule"
             }
           ]
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Total Applications'"
+                  "Value": "'Groups Failing 4/5ths Rule'"
                 }
               }
             },

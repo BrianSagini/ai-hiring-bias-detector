@@ -1,6 +1,6 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "17577f60-91c6-49dd-ba43-9b5a165b0c30",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e2e8a872-093a-44f8-832b-879e35761120",
   "position": {
     "x": 20,
     "y": 380,
@@ -103,14 +103,14 @@
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fairness Detail (audit-coefficients view pending -- see docs/powerbi_guide.md)'"
+                  "Value": "'Fairness Detail'"
                 }
               }
             },

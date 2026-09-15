@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "e9e7a6d4-2186-46f6-9c92-7cfacd5131c5",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "f7a79591-eb2c-4998-b83d-bd93f3b4abe0",
   "position": {
     "x": 20,
-    "y": 480,
+    "y": 380,
     "z": 0,
     "width": 1240,
-    "height": 180,
+    "height": 280,
     "tabOrder": 0
   },
   "visual": {
@@ -20,97 +20,97 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FunnelSummary"
+                      "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "role_family"
+                  "Property": "group_attribute"
                 }
               },
-              "queryRef": "FunnelSummary.role_family",
-              "nativeQueryRef": "role_family"
+              "queryRef": "GroupComparison.group_attribute",
+              "nativeQueryRef": "group_attribute"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FunnelSummary"
+                      "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "total_applications"
+                  "Property": "group_value"
                 }
               },
-              "queryRef": "FunnelSummary.total_applications",
-              "nativeQueryRef": "total_applications"
+              "queryRef": "GroupComparison.group_value",
+              "nativeQueryRef": "group_value"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FunnelSummary"
+                      "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "reached_screen"
+                  "Property": "stage"
                 }
               },
-              "queryRef": "FunnelSummary.reached_screen",
-              "nativeQueryRef": "reached_screen"
+              "queryRef": "GroupComparison.stage",
+              "nativeQueryRef": "stage"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FunnelSummary"
+                      "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "reached_interview"
+                  "Property": "selection_rate"
                 }
               },
-              "queryRef": "FunnelSummary.reached_interview",
-              "nativeQueryRef": "reached_interview"
+              "queryRef": "GroupComparison.selection_rate",
+              "nativeQueryRef": "selection_rate"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FunnelSummary"
+                      "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "reached_offer"
+                  "Property": "adverse_impact_ratio"
                 }
               },
-              "queryRef": "FunnelSummary.reached_offer",
-              "nativeQueryRef": "reached_offer"
+              "queryRef": "GroupComparison.adverse_impact_ratio",
+              "nativeQueryRef": "adverse_impact_ratio"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FunnelSummary"
+                      "Entity": "GroupComparison"
                     }
                   },
-                  "Property": "reached_hire"
+                  "Property": "fails_four_fifths_rule"
                 }
               },
-              "queryRef": "FunnelSummary.reached_hire",
-              "nativeQueryRef": "reached_hire"
+              "queryRef": "GroupComparison.fails_four_fifths_rule",
+              "nativeQueryRef": "fails_four_fifths_rule"
             }
           ]
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Funnel Detail'"
+                  "Value": "'Group Comparison Detail'"
                 }
               }
             },

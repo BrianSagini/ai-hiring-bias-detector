@@ -1,9 +1,9 @@
 table FunnelSummary
-	lineageTag: d164eb25-2529-40b8-b06b-f8104f1c7531
+	lineageTag: 74552936-d835-4e6e-ae26-24f6b9fd6bfe
 
 	column role_family
 		dataType: string
-		lineageTag: 80a20903-5d13-41a7-bcc4-30842d09c6b8
+		lineageTag: 3db2c6a2-ed62-4187-af53-928983f9f1f3
 		summarizeBy: none
 		sourceColumn: role_family
 
@@ -11,7 +11,7 @@ table FunnelSummary
 
 	column total_applications
 		dataType: int64
-		lineageTag: 88a450ea-aec0-4adb-b20b-80929402bfdc
+		lineageTag: 64eecebc-e596-4d51-b473-0d18126a8d5d
 		summarizeBy: none
 		formatString: #,0
 		sourceColumn: total_applications
@@ -20,7 +20,7 @@ table FunnelSummary
 
 	column reached_screen
 		dataType: int64
-		lineageTag: 6604813d-b9d4-4ce5-af87-383ed8ccc351
+		lineageTag: c0390238-757c-4a45-b977-2cfb17fbf61a
 		summarizeBy: none
 		formatString: #,0
 		sourceColumn: reached_screen
@@ -29,7 +29,7 @@ table FunnelSummary
 
 	column reached_interview
 		dataType: int64
-		lineageTag: 94c2e978-8754-4ffa-8116-784e9e963f0c
+		lineageTag: 4e79abd9-b69a-475e-a89d-ceebd834ef57
 		summarizeBy: none
 		formatString: #,0
 		sourceColumn: reached_interview
@@ -38,7 +38,7 @@ table FunnelSummary
 
 	column reached_offer
 		dataType: int64
-		lineageTag: b97ba3b6-54bd-4528-9260-f874a60b7bee
+		lineageTag: 3d968ded-8a80-45eb-95c9-7d58d6bd4ccf
 		summarizeBy: none
 		formatString: #,0
 		sourceColumn: reached_offer
@@ -47,7 +47,7 @@ table FunnelSummary
 
 	column reached_hire
 		dataType: int64
-		lineageTag: 0b74d97f-8340-479c-985c-959797495d33
+		lineageTag: c1c91512-76db-4942-9834-f9969ad8ca44
 		summarizeBy: none
 		formatString: #,0
 		sourceColumn: reached_hire
@@ -56,43 +56,43 @@ table FunnelSummary
 
 	measure 'Total Applications' = SUM(FunnelSummary[total_applications])
 		formatString: #,0
-		lineageTag: a7841005-6bd5-42a1-b7ee-a70449e2b696
+		lineageTag: 0730dbb5-eaf6-474b-b943-25b3f235350d
 
 	measure 'Total Screened' = SUM(FunnelSummary[reached_screen])
 		formatString: #,0
-		lineageTag: 94b56998-ece3-4507-b077-af7f71e57aa7
+		lineageTag: a85d5e7f-cd24-4675-8391-9b8750e4f2ee
 
 	measure 'Total Interviewed' = SUM(FunnelSummary[reached_interview])
 		formatString: #,0
-		lineageTag: 87e4a45b-cc26-4eb9-b883-5eb818fae737
+		lineageTag: ef6ea966-8dd8-438c-baed-a4b26a444bd6
 
 	measure 'Total Offered' = SUM(FunnelSummary[reached_offer])
 		formatString: #,0
-		lineageTag: 995e6450-7dbe-4360-9c70-c6642c4e0086
+		lineageTag: 58f336fe-d262-4797-9b33-56ad1fae739a
 
 	measure 'Total Hired' = SUM(FunnelSummary[reached_hire])
 		formatString: #,0
-		lineageTag: 1967ef5a-29b5-4d0a-b28a-0208b48035bc
+		lineageTag: 518e084d-454d-4cf0-974c-a5a663833840
 
 	measure 'Screen Rate' = DIVIDE([Total Screened], [Total Applications])
 		formatString: 0.00%
-		lineageTag: 1e6ce3e8-7e68-4f02-a659-6b16d9f68367
+		lineageTag: bb96621e-c3db-4d7c-b9e9-35e4f4646f95
 
 	measure 'Interview Rate' = DIVIDE([Total Interviewed], [Total Screened])
 		formatString: 0.00%
-		lineageTag: 5d4802c6-21b7-45b8-9ab4-80c1825cdc50
+		lineageTag: f466cded-645b-45d1-962c-4eda31db583a
 
 	measure 'Offer Rate' = DIVIDE([Total Offered], [Total Interviewed])
 		formatString: 0.00%
-		lineageTag: 15064bab-03aa-4a68-8bec-04869e4a5413
+		lineageTag: d73b2142-4b1b-4acf-91ee-e4c346e1e89f
 
 	measure 'Hire Rate' = DIVIDE([Total Hired], [Total Offered])
 		formatString: 0.00%
-		lineageTag: b5b2b31e-4eca-47ef-9364-1ce39edff84b
+		lineageTag: 632c8964-efbf-4d15-ba17-d0d503d28700
 
 	measure 'Overall Selection Rate' = DIVIDE([Total Hired], [Total Applications])
 		formatString: 0.00%
-		lineageTag: dcdc3faa-34bc-4ced-b51b-2961b1d9068e
+		lineageTag: 4d7ef29a-56b3-4243-b49c-ade6e97015ec
 
 	partition FunnelSummary = m
 		mode: import
