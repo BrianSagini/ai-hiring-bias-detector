@@ -36,17 +36,22 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "GroupComparison"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "GroupComparison"
+                        }
+                      },
+                      "Property": "rate_difference"
                     }
                   },
-                  "Property": "rate_difference"
+                  "Function": 1
                 }
               },
               "queryRef": "GroupComparison.rate_difference",
-              "nativeQueryRef": "rate_difference"
+              "nativeQueryRef": "Average of rate_difference"
             }
           ]
         }

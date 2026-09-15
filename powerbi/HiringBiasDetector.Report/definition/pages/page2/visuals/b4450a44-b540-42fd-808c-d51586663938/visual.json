@@ -36,17 +36,22 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "GroupComparison"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "GroupComparison"
+                        }
+                      },
+                      "Property": "selection_rate"
                     }
                   },
-                  "Property": "selection_rate"
+                  "Function": 1
                 }
               },
               "queryRef": "GroupComparison.selection_rate",
-              "nativeQueryRef": "selection_rate"
+              "nativeQueryRef": "Average of selection_rate"
             }
           ]
         }

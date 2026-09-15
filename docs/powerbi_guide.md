@@ -12,14 +12,27 @@ needs a new SQL view (`hiring_bias.powerbi_audit_coefficients`) that doesn't exi
 uses the fairness tables instead — real fields, just not the coefficients page originally
 envisioned.
 
-**Power BI Desktop validation status: PARTIALLY VERIFIED, via the sibling Climate Risk project.**
-The project owner actually opened `ClimateRisk.pbip` and reported real bugs (blank charts, no
-titles, a literal `\$`, wrong date format, maps disabled for their tenant) — root causes found and
-fixed identically across all 4 projects, this one included (full diagnostic account in Climate's
-`docs/powerbi_guide.md`). **This project's own file has not been independently reopened** — its
-fixes and this round's styling are structurally validated (every field/measure reference checked
-against the live model, no overlaps, no blank pages) but not yet confirmed by an actual render.
-If you open this file and something doesn't render correctly, that's real information — say so.
+**Power BI Desktop validation status: FULLY VERIFIED. All 4 pages confirmed rendering correctly
+with real data, real colors, in Power BI Desktop** (see `docs/evidence/page1_executive_overview.png`
+through `page4_model_decision_analysis.png`).
+
+The root causes behind the original round-2 bugs (blank charts, no titles, a literal `\$`, wrong
+date format, maps disabled for the tenant) were found on the sibling Climate Risk project and
+fixed identically here — see Climate's `docs/powerbi_guide.md` for that diagnostic account. This
+project's own file was then independently reopened in Desktop, where it first failed to load
+entirely with "Your report has issues that could not be resolved" — `report.json`'s
+`themeCollection.baseTheme.reportVersionAtImport` was a bare string (`"5.55"`) instead of the
+required `{visual, report, page}` object. Fixed to match Climate's shape.
+
+After that fix, the file loaded but every chart Y-field bound as a raw, unaggregated `Column`
+reference rendered as a completely empty plot area — no bars, no error shown. Fixed by wrapping
+each affected field in Desktop's own confirmed `Aggregation` shape
+(`field.Aggregation.Expression.Column` + `Function`) or, where an exact-match DAX measure existed
+(`Total Applications`, `Total Screened`, `Total Interviewed`, `Total Offered`, `Total Hired`),
+pointing the field at that measure instead. Selection-rate/adverse-impact-ratio/rate-difference
+charts use `Function: 1` (Average) on the raw column deliberately — the guide's own instruction not
+to re-derive an already-SQL-computed rate in DAX still holds; the Average wrapper exists only to
+satisfy the chart's aggregation requirement, and is a no-op given one row per category.
 
 ## Data connectivity
 

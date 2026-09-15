@@ -36,31 +36,31 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FunnelSummary"
                     }
                   },
-                  "Property": "total_applications"
+                  "Property": "Total Applications"
                 }
               },
-              "queryRef": "FunnelSummary.total_applications",
-              "nativeQueryRef": "total_applications"
+              "queryRef": "FunnelSummary.Total Applications",
+              "nativeQueryRef": "Total Applications"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FunnelSummary"
                     }
                   },
-                  "Property": "reached_hire"
+                  "Property": "Total Hired"
                 }
               },
-              "queryRef": "FunnelSummary.reached_hire",
-              "nativeQueryRef": "reached_hire"
+              "queryRef": "FunnelSummary.Total Hired",
+              "nativeQueryRef": "Total Hired"
             }
           ]
         }

@@ -36,73 +36,73 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FunnelSummary"
                     }
                   },
-                  "Property": "total_applications"
+                  "Property": "Total Applications"
                 }
               },
-              "queryRef": "FunnelSummary.total_applications",
-              "nativeQueryRef": "total_applications"
+              "queryRef": "FunnelSummary.Total Applications",
+              "nativeQueryRef": "Total Applications"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FunnelSummary"
                     }
                   },
-                  "Property": "reached_screen"
+                  "Property": "Total Screened"
                 }
               },
-              "queryRef": "FunnelSummary.reached_screen",
-              "nativeQueryRef": "reached_screen"
+              "queryRef": "FunnelSummary.Total Screened",
+              "nativeQueryRef": "Total Screened"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FunnelSummary"
                     }
                   },
-                  "Property": "reached_interview"
+                  "Property": "Total Interviewed"
                 }
               },
-              "queryRef": "FunnelSummary.reached_interview",
-              "nativeQueryRef": "reached_interview"
+              "queryRef": "FunnelSummary.Total Interviewed",
+              "nativeQueryRef": "Total Interviewed"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FunnelSummary"
                     }
                   },
-                  "Property": "reached_offer"
+                  "Property": "Total Offered"
                 }
               },
-              "queryRef": "FunnelSummary.reached_offer",
-              "nativeQueryRef": "reached_offer"
+              "queryRef": "FunnelSummary.Total Offered",
+              "nativeQueryRef": "Total Offered"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FunnelSummary"
                     }
                   },
-                  "Property": "reached_hire"
+                  "Property": "Total Hired"
                 }
               },
-              "queryRef": "FunnelSummary.reached_hire",
-              "nativeQueryRef": "reached_hire"
+              "queryRef": "FunnelSummary.Total Hired",
+              "nativeQueryRef": "Total Hired"
             }
           ]
         }

@@ -36,17 +36,22 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "GroupComparison"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "GroupComparison"
+                        }
+                      },
+                      "Property": "adverse_impact_ratio"
                     }
                   },
-                  "Property": "adverse_impact_ratio"
+                  "Function": 1
                 }
               },
               "queryRef": "GroupComparison.adverse_impact_ratio",
-              "nativeQueryRef": "adverse_impact_ratio"
+              "nativeQueryRef": "Average of adverse_impact_ratio"
             }
           ]
         }
