@@ -1,0 +1,106 @@
+table FunnelSummary
+	lineageTag: d164eb25-2529-40b8-b06b-f8104f1c7531
+
+	column role_family
+		dataType: string
+		lineageTag: 80a20903-5d13-41a7-bcc4-30842d09c6b8
+		summarizeBy: none
+		sourceColumn: role_family
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_applications
+		dataType: int64
+		lineageTag: 88a450ea-aec0-4adb-b20b-80929402bfdc
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: total_applications
+
+		annotation SummarizationSetBy = Automatic
+
+	column reached_screen
+		dataType: int64
+		lineageTag: 6604813d-b9d4-4ce5-af87-383ed8ccc351
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: reached_screen
+
+		annotation SummarizationSetBy = Automatic
+
+	column reached_interview
+		dataType: int64
+		lineageTag: 94c2e978-8754-4ffa-8116-784e9e963f0c
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: reached_interview
+
+		annotation SummarizationSetBy = Automatic
+
+	column reached_offer
+		dataType: int64
+		lineageTag: b97ba3b6-54bd-4528-9260-f874a60b7bee
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: reached_offer
+
+		annotation SummarizationSetBy = Automatic
+
+	column reached_hire
+		dataType: int64
+		lineageTag: 0b74d97f-8340-479c-985c-959797495d33
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: reached_hire
+
+		annotation SummarizationSetBy = Automatic
+
+	measure 'Total Applications' = SUM(FunnelSummary[total_applications])
+		formatString: #,0
+		lineageTag: a7841005-6bd5-42a1-b7ee-a70449e2b696
+
+	measure 'Total Screened' = SUM(FunnelSummary[reached_screen])
+		formatString: #,0
+		lineageTag: 94b56998-ece3-4507-b077-af7f71e57aa7
+
+	measure 'Total Interviewed' = SUM(FunnelSummary[reached_interview])
+		formatString: #,0
+		lineageTag: 87e4a45b-cc26-4eb9-b883-5eb818fae737
+
+	measure 'Total Offered' = SUM(FunnelSummary[reached_offer])
+		formatString: #,0
+		lineageTag: 995e6450-7dbe-4360-9c70-c6642c4e0086
+
+	measure 'Total Hired' = SUM(FunnelSummary[reached_hire])
+		formatString: #,0
+		lineageTag: 1967ef5a-29b5-4d0a-b28a-0208b48035bc
+
+	measure 'Screen Rate' = DIVIDE([Total Screened], [Total Applications])
+		formatString: 0.00%
+		lineageTag: 1e6ce3e8-7e68-4f02-a659-6b16d9f68367
+
+	measure 'Interview Rate' = DIVIDE([Total Interviewed], [Total Screened])
+		formatString: 0.00%
+		lineageTag: 5d4802c6-21b7-45b8-9ab4-80c1825cdc50
+
+	measure 'Offer Rate' = DIVIDE([Total Offered], [Total Interviewed])
+		formatString: 0.00%
+		lineageTag: 15064bab-03aa-4a68-8bec-04869e4a5413
+
+	measure 'Hire Rate' = DIVIDE([Total Hired], [Total Offered])
+		formatString: 0.00%
+		lineageTag: b5b2b31e-4eca-47ef-9364-1ce39edff84b
+
+	measure 'Overall Selection Rate' = DIVIDE([Total Hired], [Total Applications])
+		formatString: 0.00%
+		lineageTag: dcdc3faa-34bc-4ced-b51b-2961b1d9068e
+
+	partition FunnelSummary = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					hiring_bias_powerbi_funnel_summary = Source{[Schema="hiring_bias",Item="powerbi_funnel_summary"]}[Data]
+				in
+					hiring_bias_powerbi_funnel_summary
+
+	annotation PBI_ResultType = Table

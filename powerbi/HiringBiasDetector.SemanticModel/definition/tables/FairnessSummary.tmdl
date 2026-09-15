@@ -1,0 +1,99 @@
+table FairnessSummary
+	lineageTag: 1055f36d-a392-4bb5-b75a-761b053c4634
+
+	column group_attribute
+		dataType: string
+		lineageTag: 1ffa7a4f-9137-44d6-8c26-a1d2d31f82cc
+		summarizeBy: none
+		sourceColumn: group_attribute
+
+		annotation SummarizationSetBy = Automatic
+
+	column group_value
+		dataType: string
+		lineageTag: e06a0d3e-270d-4db4-a45e-ade6c65b491f
+		summarizeBy: none
+		sourceColumn: group_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column stage
+		dataType: string
+		lineageTag: 602b6ec3-89fa-46bd-8f8b-6a64a9926fb4
+		summarizeBy: none
+		sourceColumn: stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_at_risk
+		dataType: int64
+		lineageTag: 63e490d9-9d04-4431-a174-9d98ca31110b
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: total_at_risk
+
+		annotation SummarizationSetBy = Automatic
+
+	column passed
+		dataType: int64
+		lineageTag: 89cffa9f-a005-491f-9a19-a4758a3b55cd
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: passed
+
+		annotation SummarizationSetBy = Automatic
+
+	column selection_rate
+		dataType: double
+		lineageTag: a446085d-e2eb-418b-890e-33c269b74ba9
+		summarizeBy: none
+		formatString: 0.00%
+		sourceColumn: selection_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference_group
+		dataType: string
+		lineageTag: a98aa448-4661-40db-9a33-35896f3993a1
+		summarizeBy: none
+		sourceColumn: reference_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference_selection_rate
+		dataType: double
+		lineageTag: b395eb8c-cf49-4c28-896b-45a7de077347
+		summarizeBy: none
+		formatString: 0.00%
+		sourceColumn: reference_selection_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column adverse_impact_ratio
+		dataType: double
+		lineageTag: 5734f5a1-d33c-48eb-8d50-06b69c875576
+		summarizeBy: none
+		formatString: 0.000
+		sourceColumn: adverse_impact_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column computed_at
+		dataType: dateTime
+		lineageTag: d43415a8-63d2-4fc0-bd8f-22d4a6c821b1
+		summarizeBy: none
+		formatString: yyyy-mm-dd hh:mm:ss
+		sourceColumn: computed_at
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FairnessSummary = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					hiring_bias_powerbi_fairness_summary = Source{[Schema="hiring_bias",Item="powerbi_fairness_summary"]}[Data]
+				in
+					hiring_bias_powerbi_fairness_summary
+
+	annotation PBI_ResultType = Table

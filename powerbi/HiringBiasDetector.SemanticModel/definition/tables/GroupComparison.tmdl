@@ -1,0 +1,111 @@
+table GroupComparison
+	lineageTag: b32de90a-07c8-41d3-a31b-7ed92c151b5a
+
+	column group_attribute
+		dataType: string
+		lineageTag: cf536502-3623-4ad4-8874-b1ea2b81ced8
+		summarizeBy: none
+		sourceColumn: group_attribute
+
+		annotation SummarizationSetBy = Automatic
+
+	column group_value
+		dataType: string
+		lineageTag: b4008b89-7a32-4e60-812b-3d910739a113
+		summarizeBy: none
+		sourceColumn: group_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column stage
+		dataType: string
+		lineageTag: 0e18c671-febb-43f8-88eb-ce960d4275bc
+		summarizeBy: none
+		sourceColumn: stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_at_risk
+		dataType: int64
+		lineageTag: f0e47692-818c-49ac-a8f2-5972bde7dd01
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: total_at_risk
+
+		annotation SummarizationSetBy = Automatic
+
+	column passed
+		dataType: int64
+		lineageTag: 7ec41dc9-665f-4ff8-8d47-3d3f5d9e418e
+		summarizeBy: none
+		formatString: #,0
+		sourceColumn: passed
+
+		annotation SummarizationSetBy = Automatic
+
+	column selection_rate
+		dataType: double
+		lineageTag: 84a3bc7f-fffd-4d31-8129-d85638fb3969
+		summarizeBy: none
+		formatString: 0.00%
+		sourceColumn: selection_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference_group
+		dataType: string
+		lineageTag: fb2ad641-0875-4de7-b618-ea49d02c411b
+		summarizeBy: none
+		sourceColumn: reference_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference_selection_rate
+		dataType: double
+		lineageTag: 6ad67800-dc17-4681-996b-7d3c482f580a
+		summarizeBy: none
+		formatString: 0.00%
+		sourceColumn: reference_selection_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column adverse_impact_ratio
+		dataType: double
+		lineageTag: 4a317f17-c15b-430d-8a59-3cae7e2d039b
+		summarizeBy: none
+		formatString: 0.000
+		sourceColumn: adverse_impact_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column rate_difference
+		dataType: double
+		lineageTag: 6ea5c550-6faa-4fb7-99dd-4f003227364f
+		summarizeBy: none
+		formatString: 0.00%
+		sourceColumn: rate_difference
+
+		annotation SummarizationSetBy = Automatic
+
+	column fails_four_fifths_rule
+		dataType: boolean
+		lineageTag: 75759e30-6f24-4228-a41c-430dc6eb2ee7
+		summarizeBy: none
+		sourceColumn: fails_four_fifths_rule
+
+		annotation SummarizationSetBy = Automatic
+
+	measure 'Groups Failing 4/5ths Rule' = CALCULATE(DISTINCTCOUNT(GroupComparison[group_value]), GroupComparison[fails_four_fifths_rule] = TRUE)
+		formatString: 0
+		lineageTag: ed9f5dae-7079-41b0-a71f-5f94559afc73
+
+	partition GroupComparison = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					hiring_bias_powerbi_group_comparison = Source{[Schema="hiring_bias",Item="powerbi_group_comparison"]}[Data]
+				in
+					hiring_bias_powerbi_group_comparison
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "HiringBiasDetector"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "22aa34da-2c87-4a39-ac00-f8ff58bfe173"
+  }
+}

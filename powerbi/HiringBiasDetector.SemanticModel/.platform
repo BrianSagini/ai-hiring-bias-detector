@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "HiringBiasDetector"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "657eb137-688e-4b5c-a2cd-4aafbb5f1cab"
+  }
+}
