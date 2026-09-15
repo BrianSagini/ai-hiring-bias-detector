@@ -34,6 +34,16 @@ charts use `Function: 1` (Average) on the raw column deliberately — the guide'
 to re-derive an already-SQL-computed rate in DAX still holds; the Average wrapper exists only to
 satisfy the chart's aggregation requirement, and is a no-op given one row per category.
 
+**Round 5 (this one)**: tightened every page's layout to a dense 16px-margin/14px-gutter grid, and
+fixed the canvas background and card accent colors — `visualStyles.*.*.outspace` doesn't actually
+control the page canvas (confirmed via Desktop's own theme customizer; the real property is
+`visualStyles.page.*.background`), and cards need `objects.labels[0].properties.color`, not
+`dataPoint` (confirmed via Desktop's own save after setting a card's color through Format →
+Callout value → Color). `report.json` was also rebuilt from Climate's proven-correct structure
+(older schema version and a missing base-theme resourcePackage entry, both silently tolerated
+until this round's newer theme feature tripped a hard load error). All 4 pages reopened and
+confirmed rendering correctly.
+
 ## Data connectivity
 
 Get Data → Database → PostgreSQL database → `localhost:5433` / `analytics` / `analytics_ro`
@@ -72,18 +82,24 @@ group itself). The theme's `dataColors` sequence leads with the neutral qualitat
 sequence (Blue, Purple `#6C4AB6`, Teal, Slate `#64748B`) precisely so any chart that ends up
 color-differentiating by group falls back to those, not amber/red, by construction.
 
-**Background**: a pale blue-tinted canvas `#EDF3F8` behind white visual containers — same
-reasoning as Climate's (see that project's guide for the 3 options weighed).
+**Background**: a pale blue-tinted canvas `#D8E7F2` behind white visual containers. Set via
+`HiringBiasTheme.json`'s `visualStyles.page.*.background` — **not** `outspace`, which doesn't
+control the canvas (see Status above for how that was confirmed).
 
 **Per-visual accent colors**: applied *only* to compliance-indicator metrics, never to a
 demographic group — Groups Failing 4/5ths Rule card, Adverse Impact Ratio by Group, and Selection
 Rate Difference vs. Reference Group → warning amber (all bars in a uniform amber, since the metric
 itself is the thing being flagged, not any one group). Selection Rate by Group and the funnel
 charts are left theme-driven, using the neutral group sequence above — no group is ever singled
-out in red/green.
+out in red/green. The amber card uses `objects.labels[0].properties.color` (not `dataPoint` — see
+Status above); the amber charts use each chart's own `dataPoint.defaultColor`.
 
 **Header/footer**: every page gets a themed header and footer as real `textbox` visuals,
 including a synthetic-data disclosure in the header badge.
+
+**Layout**: a standard dense grid — 16px canvas margin, 14px gutter between visuals, visuals
+resized to fill their row/column exactly. Before this pass, pages covered 78–83% of the canvas by
+visual area; after, 87–88%.
 
 ## Visual inventory
 
@@ -94,22 +110,22 @@ Every visual below is a real object in `powerbi/HiringBiasDetector.Report/defini
 - Overall Selection Rate — Card — `FunnelSummary[Overall Selection Rate]`
 - Hire Rate — Card — `FunnelSummary[Hire Rate]`
 - Groups Failing 4/5ths Rule — Card — `GroupComparison[Groups Failing 4/5ths Rule]`
-- Applications vs. Hires by Role Family — Clustered column chart — Category `FunnelSummary[role_family]`, Y `FunnelSummary[total_applications]`, `FunnelSummary[reached_hire]`
+- Applications vs. Hires by Role Family — Clustered column chart — Category `FunnelSummary[role_family]`, Y `FunnelSummary[Total Applications]`, `FunnelSummary[Total Hired]`
 
 **Page 2 — Recruitment Funnel**
-- Funnel Stage Totals by Role Family — Clustered column chart — Category `FunnelSummary[role_family]`, Y all 5 stage totals
+- Funnel Stage Totals by Role Family — Clustered column chart — Category `FunnelSummary[role_family]`, Y all 5 stage-total measures
 - Funnel Detail — Table — `FunnelSummary[role_family]` + all 5 stage totals
 
 **Page 3 — Fairness & Group Comparison**
-- Selection Rate by Group — Clustered column chart — Category `GroupComparison[group_value]`, Y `GroupComparison[selection_rate]`
-- Adverse Impact Ratio by Group — Clustered column chart — Category `GroupComparison[group_value]`, Y `GroupComparison[adverse_impact_ratio]`
+- Selection Rate by Group — Clustered column chart — Category `GroupComparison[group_value]`, Y `GroupComparison[selection_rate]` (Average aggregation)
+- Adverse Impact Ratio by Group — Clustered column chart — Category `GroupComparison[group_value]`, Y `GroupComparison[adverse_impact_ratio]` (Average aggregation)
 - Group Comparison Detail — Table — attribute, group, stage, selection rate, adverse-impact ratio, fails-4/5ths flag
 
 **Page 4 — Model & Decision Analysis** *(real fields, but not yet the coefficients page — see Status)*
-- Selection Rate Difference vs. Reference Group — Clustered column chart — Category `GroupComparison[group_value]`, Y `GroupComparison[rate_difference]`
+- Selection Rate Difference vs. Reference Group — Clustered column chart — Category `GroupComparison[group_value]`, Y `GroupComparison[rate_difference]` (Average aggregation)
 - Fairness Detail — Table — `FairnessSummary[group_attribute]`, `[group_value]`, `[stage]`, `[total_at_risk]`, `[passed]`, `[reference_selection_rate]`
 
-**Total: 12 visuals across 4 pages.**
+**Total: 20 visuals across 4 pages** (12 data visuals + a header and footer text box per page).
 
 **Never add a per-candidate table or score to this report.**
 

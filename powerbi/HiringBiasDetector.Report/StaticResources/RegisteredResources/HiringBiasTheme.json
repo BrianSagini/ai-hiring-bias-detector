@@ -56,10 +56,23 @@
           {
             "color": {
               "solid": {
-                "color": "#EDF3F8"
+                "color": "#D8E7F2"
               }
             },
             "transparency": 0
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#D8E7F2"
+              }
+            }
           }
         ]
       }
