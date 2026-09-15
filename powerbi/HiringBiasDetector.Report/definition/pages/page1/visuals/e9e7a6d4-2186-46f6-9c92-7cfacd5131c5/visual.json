@@ -1,0 +1,129 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "e9e7a6d4-2186-46f6-9c92-7cfacd5131c5",
+  "position": {
+    "x": 20,
+    "y": 480,
+    "z": 0,
+    "width": 1240,
+    "height": 180,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "role_family"
+                }
+              },
+              "queryRef": "FunnelSummary.role_family",
+              "nativeQueryRef": "role_family"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "total_applications"
+                }
+              },
+              "queryRef": "FunnelSummary.total_applications",
+              "nativeQueryRef": "total_applications"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "reached_screen"
+                }
+              },
+              "queryRef": "FunnelSummary.reached_screen",
+              "nativeQueryRef": "reached_screen"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "reached_interview"
+                }
+              },
+              "queryRef": "FunnelSummary.reached_interview",
+              "nativeQueryRef": "reached_interview"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "reached_offer"
+                }
+              },
+              "queryRef": "FunnelSummary.reached_offer",
+              "nativeQueryRef": "reached_offer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "reached_hire"
+                }
+              },
+              "queryRef": "FunnelSummary.reached_hire",
+              "nativeQueryRef": "reached_hire"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Funnel Detail'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

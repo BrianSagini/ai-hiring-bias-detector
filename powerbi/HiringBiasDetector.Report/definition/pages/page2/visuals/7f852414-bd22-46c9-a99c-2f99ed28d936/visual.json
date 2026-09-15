@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "7f852414-bd22-46c9-a99c-2f99ed28d936",
+  "position": {
+    "x": 660,
+    "y": 60,
+    "z": 0,
+    "width": 600,
+    "height": 300,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "group_value"
+                }
+              },
+              "queryRef": "GroupComparison.group_value",
+              "nativeQueryRef": "group_value"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GroupComparison"
+                    }
+                  },
+                  "Property": "adverse_impact_ratio"
+                }
+              },
+              "queryRef": "GroupComparison.adverse_impact_ratio",
+              "nativeQueryRef": "adverse_impact_ratio"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Adverse Impact Ratio by Group'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

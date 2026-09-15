@@ -1,0 +1,129 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "17577f60-91c6-49dd-ba43-9b5a165b0c30",
+  "position": {
+    "x": 20,
+    "y": 380,
+    "z": 0,
+    "width": 1240,
+    "height": 280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FairnessSummary"
+                    }
+                  },
+                  "Property": "group_attribute"
+                }
+              },
+              "queryRef": "FairnessSummary.group_attribute",
+              "nativeQueryRef": "group_attribute"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FairnessSummary"
+                    }
+                  },
+                  "Property": "group_value"
+                }
+              },
+              "queryRef": "FairnessSummary.group_value",
+              "nativeQueryRef": "group_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FairnessSummary"
+                    }
+                  },
+                  "Property": "stage"
+                }
+              },
+              "queryRef": "FairnessSummary.stage",
+              "nativeQueryRef": "stage"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FairnessSummary"
+                    }
+                  },
+                  "Property": "total_at_risk"
+                }
+              },
+              "queryRef": "FairnessSummary.total_at_risk",
+              "nativeQueryRef": "total_at_risk"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FairnessSummary"
+                    }
+                  },
+                  "Property": "passed"
+                }
+              },
+              "queryRef": "FairnessSummary.passed",
+              "nativeQueryRef": "passed"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FairnessSummary"
+                    }
+                  },
+                  "Property": "reference_selection_rate"
+                }
+              },
+              "queryRef": "FairnessSummary.reference_selection_rate",
+              "nativeQueryRef": "reference_selection_rate"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fairness Detail (audit-coefficients view pending -- see docs/powerbi_guide.md)'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

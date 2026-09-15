@@ -58,10 +58,14 @@ employer. Full detail and ethical-use disclosure: `docs/methodology.md`.
 ## Power BI
 
 A real `.pbip` project (`powerbi/HiringBiasDetector.pbip`) exists with the complete data model —
-3 tables, 11 DAX measures — but **it has never been opened in Power BI Desktop, so it isn't
-validated.** The 4 report pages exist but have no visuals yet (and page 4's audit-coefficients
-view still needs to be added to SQL first — see `docs/powerbi_guide.md`). This report must never
-rank or recommend individual candidates, by the same constraint as the pipeline itself.
+3 tables, 11 DAX measures — **and 12 real visuals across all 4 pages** (see
+`docs/powerbi_guide.md`'s visual inventory; page 4's audit-coefficients view still needs to be
+added to SQL first, so it uses the fairness tables instead for now). **Rendering is not
+verified**: the outer project structure was confirmed openable by Power BI Desktop in one safe
+test on a sibling project, but the visual JSON itself was never opened (a second validation
+attempt captured unrelated desktop content and was stopped — full account in
+`docs/powerbi_guide.md`). This report must never rank or recommend individual candidates, by the
+same constraint as the pipeline itself.
 
 ## Documentation
 

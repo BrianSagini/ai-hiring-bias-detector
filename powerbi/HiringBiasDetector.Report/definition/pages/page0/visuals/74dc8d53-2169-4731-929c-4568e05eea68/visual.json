@@ -1,0 +1,91 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "74dc8d53-2169-4731-929c-4568e05eea68",
+  "position": {
+    "x": 20,
+    "y": 200,
+    "z": 0,
+    "width": 1240,
+    "height": 480,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "role_family"
+                }
+              },
+              "queryRef": "FunnelSummary.role_family",
+              "nativeQueryRef": "role_family"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "total_applications"
+                }
+              },
+              "queryRef": "FunnelSummary.total_applications",
+              "nativeQueryRef": "total_applications"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FunnelSummary"
+                    }
+                  },
+                  "Property": "reached_hire"
+                }
+              },
+              "queryRef": "FunnelSummary.reached_hire",
+              "nativeQueryRef": "reached_hire"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Applications vs. Hires by Role Family'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
