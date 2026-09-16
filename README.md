@@ -1,23 +1,21 @@
-# ⚖️ AI Hiring Bias Detector
+# AI Hiring Bias Detector
 
-An ethical recruitment analytics platform: a 100% synthetic recruitment funnel with documented,
-adjustable bias injection, audited with standard fairness metrics (selection rate, four-fifths
-adverse-impact ratio). Part of a 4-project data analytics portfolio
-([siblings](#related-projects) below); this repo is fully self-contained and runs on its own.
+This is an audit tool, not a hiring tool. It never scores, ranks, or recommends a candidate — every
+number it produces is a group-level rate or ratio, computed the way an EEOC compliance review would
+compute it. I built it to practice the analytics side of algorithmic fairness: selection-rate
+disparities, the four-fifths adverse-impact rule, and an interpretable audit model, over a
+recruitment funnel I control end to end.
 
-**Stack**: Apache Airflow 3.3.1 → PostgreSQL 16 → Python/SQL → Streamlit + Plotly → Power BI
-(`.pbip` project included, unvalidated — see [Power BI](#power-bi)).
+The funnel — 20,000 synthetic candidates moving through screen → interview → offer → hire — is
+entirely generated, with bias multipliers I wrote in myself at specific stages so the fairness
+metrics have something real to detect. Group labels (`Group A`–`D`, `Woman`/`Man`/`Non-binary`) are
+placeholders, not a real demographic taxonomy, and the injected gaps are deliberately larger than
+most measured real-world hiring gaps — this shows the methodology works, it isn't a claim about any
+real employer.
 
-**This system does not automatically decide who should be hired.** It is an audit/analysis tool
-only — every output is a group-level rate or ratio, never a per-candidate score or recommendation.
+**Stack**: Apache Airflow 3.3.1 → PostgreSQL 16 → Python/SQL → Streamlit + Plotly → Power BI.
 
-## Data
-
-**100% synthetic.** 20,000 candidates generated with a documented, adjustable bias-injection model
-(gender/ethnicity selection-rate multipliers at each funnel stage). No real applicant or employer
-data is used anywhere. Full generation methodology: `docs/methodology.md`.
-
-## Quick start
+## Setup
 
 ```bash
 cp .env.example .env
@@ -29,50 +27,59 @@ docker compose up -d --build
 docker compose ps
 ```
 
-Airflow UI: http://localhost:8081.
+Unpause and trigger the DAG from the Airflow UI (http://localhost:8081) or:
 
 ```bash
 docker compose exec airflow-scheduler airflow dags unpause hiring_bias_pipeline
 docker compose exec airflow-scheduler airflow dags trigger hiring_bias_pipeline
 ```
 
-Dashboard: http://localhost:8503 once the DAG completes (a few minutes).
+Dashboard's up at http://localhost:8503 a few minutes after the DAG finishes.
+`docker compose down` stops everything without losing data.
 
-Shut down (keeps data): `docker compose down`.
+## The pipeline
 
-## Pipeline
+Validate config → ensure schema → generate the synthetic candidate funnel → validate and load →
+compute fairness metrics in SQL → train the audit model → build the Power BI views → a
+data-quality check that rejects anything non-monotonic (a candidate marked hired without ever
+having an offer, for instance — that shouldn't be possible and I wanted the pipeline to actually
+catch it if it happened).
 
-`hiring_bias_pipeline` DAG: validate config → ensure schema → generate the synthetic candidate
-funnel → validate & load → compute fairness metrics (SQL) → train an interpretability-only audit
-model → build Power BI views → data-quality check (rejects any non-monotonic funnel, e.g. a
-candidate marked hired without an offer).
+## Fairness metrics
 
-## What the numbers mean
+Selection rate and the four-fifths adverse-impact ratio, computed in SQL per the standard EEOC
+methodology, for every group at every funnel stage. Alongside that, I trained a logistic
+regression as an interpretability-only audit model — its coefficients and confidence intervals are
+there to show which features associate with the hire outcome, and that's all it does. It doesn't
+touch a single candidate's outcome, real or synthetic, and I built it that way deliberately, not
+as an afterthought.
 
-Selection rate and the four-fifths adverse-impact ratio are computed in SQL exactly per the
-standard EEOC methodology. The "audit model" (logistic regression) is interpretability-only —
-its coefficients are exposed for inspection, and it **is never used to score, rank, or filter any
-candidate.** Results describe this synthetic dataset's construction, not evidence about any real
-employer. Full detail and ethical-use disclosure: `docs/methodology.md`.
+I want to be clear about what this doesn't do too: a ratio below 0.8 here is a statistical
+screening signal, not a legal finding — a real adverse-impact question needs legal and HR review,
+not a dashboard number. Full methodology, the exact bias multipliers I used, and the full ethical
+constraints list: `docs/methodology.md`.
 
 ## Power BI
 
-A real `.pbip` project (`powerbi/HiringBiasDetector.pbip`) exists with the complete data model —
-3 tables, 11 DAX measures — **and 12 real visuals across all 4 pages** (see
-`docs/powerbi_guide.md`'s visual inventory; page 4's audit-coefficients view still needs to be
-added to SQL first, so it uses the fairness tables instead for now). **Rendering is not
-verified**: the outer project structure was confirmed openable by Power BI Desktop in one safe
-test on a sibling project, but the visual JSON itself was never opened (a second validation
-attempt captured unrelated desktop content and was stopped — full account in
-`docs/powerbi_guide.md`). This report must never rank or recommend individual candidates, by the
-same constraint as the pipeline itself.
+Data model I built by hand — 3 tables, 11 DAX measures, matched against the SQL above — across a
+4-page, 20-visual report. The color system follows the same rule as the fairness metrics
+themselves: amber accents are reserved for compliance-indicator numbers (the 4/5ths-rule flag,
+adverse-impact ratio), and I never color a chart by demographic group in a way that would make one
+group visually stand out as "the problem." I opened every page in Power BI Desktop and confirmed
+it renders correctly with real data before calling it finished — see `docs/evidence/` for the
+screenshots and `docs/powerbi_guide.md` for the full page layout and design reasoning.
 
-## Documentation
+One page's ideal content — a breakdown of the audit model's own coefficients — needs a SQL view I
+haven't built yet, so that page currently shows the fairness detail tables instead. Everything
+else in the report is real.
 
-`docs/methodology.md` (bias-injection methodology, fairness definitions, ethical safeguards) ·
-`docs/powerbi_guide.md` · `docs/database_schema.md` · `docs/data_sources.md`.
+## More docs
 
-## Related projects
+`docs/methodology.md` has the full bias-injection design and the ethical constraints this project
+holds itself to. `docs/database_schema.md` and `docs/data_sources.md` cover the data model and why
+I chose synthetic data over a real dataset.
 
-Part of a 4-project portfolio, each in its own self-contained repo: Climate Risk & Business
-Impact, Dark Store Intelligence, Fraud Pattern Evolution Tracker.
+## The rest of the portfolio
+
+Same Airflow → Postgres → dashboard → Power BI shape, different problem each time: Climate Risk &
+Business Impact, Dark Store Intelligence, Fraud Pattern Evolution Tracker.
