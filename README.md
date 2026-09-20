@@ -36,7 +36,9 @@ docker compose exec airflow-scheduler airflow dags trigger hiring_bias_pipeline
 
 Live public dashboard: https://ai-hiring-bias-detector.streamlit.app/ (reads from a shared cloud
 database, not this local stack). Your own local run's dashboard is up at http://localhost:8503 a
-few minutes after the DAG finishes. `docker compose down` stops everything without losing data.
+few minutes after the DAG finishes. Live H2O AutoML results:
+https://ai-hiring-bias-automl.streamlit.app/ (also reads from the shared cloud database).
+`docker compose down` stops everything without losing data.
 
 ## The pipeline
 
