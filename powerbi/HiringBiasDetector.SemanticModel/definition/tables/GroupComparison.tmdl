@@ -103,7 +103,7 @@ table GroupComparison
 		mode: import
 		source =
 				let
-					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					Source = PostgreSQL.Database("localhost:5436", "analytics"),
 					hiring_bias_powerbi_group_comparison = Source{[Schema="hiring_bias",Item="powerbi_group_comparison"]}[Data]
 				in
 					hiring_bias_powerbi_group_comparison

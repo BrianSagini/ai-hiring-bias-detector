@@ -91,7 +91,7 @@ table FairnessSummary
 		mode: import
 		source =
 				let
-					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					Source = PostgreSQL.Database("localhost:5436", "analytics"),
 					hiring_bias_powerbi_fairness_summary = Source{[Schema="hiring_bias",Item="powerbi_fairness_summary"]}[Data]
 				in
 					hiring_bias_powerbi_fairness_summary
