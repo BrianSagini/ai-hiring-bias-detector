@@ -12,6 +12,7 @@ airflow/logs/*
 !airflow/logs/.gitkeep
 data_raw/*
 !data_raw/.gitkeep
+h2o_saved_models/
 .DS_Store
 *.egg-info/
 .pytest_cache/

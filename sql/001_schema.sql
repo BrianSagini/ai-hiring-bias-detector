@@ -108,3 +108,28 @@ CREATE TABLE IF NOT EXISTS hiring_bias.fairness_significance_tests (
     computed_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
     PRIMARY KEY (group_attribute, group_value, stage)
 );
+
+-- H2O AutoML leaderboard from hiring_bias_model_comparison.ipynb's "AutoML
+-- sanity check (H2O)" section -- the aml.leaderboard object itself doesn't
+-- survive that notebook's session, so this is the persisted record of it,
+-- read by the small automl/app.py Streamlit page (separate from the main
+-- dashboard). One row per model H2O trained in that AutoML run, ranked by
+-- its own sort_metric (AUC here).
+CREATE TABLE IF NOT EXISTS hiring_bias.automl_leaderboard (
+    model_id                TEXT PRIMARY KEY,
+    algorithm                TEXT NOT NULL,
+    rank                     INT NOT NULL,
+    is_leader                BOOLEAN NOT NULL DEFAULT FALSE,
+    auc                      DOUBLE PRECISION,
+    logloss                  DOUBLE PRECISION,
+    aucpr                    DOUBLE PRECISION,
+    mean_per_class_error     DOUBLE PRECISION,
+    mae                      DOUBLE PRECISION,
+    rmse                     DOUBLE PRECISION,
+    mse                      DOUBLE PRECISION,
+    rmsle                    DOUBLE PRECISION,
+    mean_residual_deviance   DOUBLE PRECISION,
+    target_column            TEXT NOT NULL,
+    project_name             TEXT NOT NULL,
+    trained_at               TIMESTAMPTZ NOT NULL
+);
