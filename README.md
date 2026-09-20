@@ -41,10 +41,10 @@ few minutes after the DAG finishes. `docker compose down` stops everything witho
 ## The pipeline
 
 Validate config → ensure schema → generate the synthetic candidate funnel → validate and load →
-compute fairness metrics in SQL → train the audit model → build the Power BI views → a
-data-quality check that rejects anything non-monotonic (a candidate marked hired without ever
-having an offer, for instance — that shouldn't be possible and I wanted the pipeline to actually
-catch it if it happened).
+compute fairness metrics in SQL → train the audit model → cross-validate and calibrate it → build
+the Power BI views → a data-quality check that rejects anything non-monotonic (a candidate marked
+hired without ever having an offer, for instance — that shouldn't be possible and I wanted the
+pipeline to actually catch it if it happened).
 
 ## Fairness metrics
 
@@ -59,6 +59,40 @@ I want to be clear about what this doesn't do too: a ratio below 0.8 here is a s
 screening signal, not a legal finding — a real adverse-impact question needs legal and HR review,
 not a dashboard number. Full methodology, the exact bias multipliers I used, and the full ethical
 constraints list: `docs/methodology.md`.
+
+## Machine learning
+
+Only 1.95% of the 20,000 synthetic candidates reach `hire` — real class imbalance, since `hire`
+means clearing four sequential stages in a row. Stratified 5-fold cross-validation (never plain
+K-fold, which risks a fold with almost no positive examples by chance) puts the audit model's
+ROC-AUC at 0.633 ± 0.046, close enough to the single held-out split's 0.627 to confirm that split
+wasn't a lucky draw. Precision/recall/F1 are zero at the default 0.5 threshold, in every fold — not
+a bug: no candidate's predicted P(hire) ever reaches 0.5, a direct consequence of the funnel's
+compounding stage-by-stage attrition, checked directly rather than assumed. ROC-AUC, being
+threshold-independent, is the metric that actually carries signal here.
+
+For a fairness tool specifically, I also checked whether that predicted probability is *reliable*
+for every group, not just overall — calibration that differs by group would be its own fairness
+problem, separate from accuracy. In the bin holding 99.65% of the test set, predicted and observed
+hire rates agree within about a percentage point for every gender and ethnicity value; no
+differential miscalibration was found. And I ran a chi-square significance test on every
+selection-rate gap the fairness metrics above flag: three come back significant (p < 0.05), and all
+three line up with the strongest bias multipliers I injected. Two *other* real injected biases
+(gender at offer, and the Non-binary screen-stage gap — numerically the largest adverse-impact gap
+of any group) don't reach significance at this sample size, because smaller groups and later funnel
+stages have less statistical power to confirm a gap even when it's real by construction. That
+distinction — which gaps this tool can and can't confidently confirm, given the sample — is the
+actual point of adding significance testing, not just a bigger table of numbers.
+
+This training/evaluation run is a real Airflow task (`evaluate_audit_model`, wired into
+`hiring_bias_pipeline` right after the existing audit-model training step), not a notebook run in
+isolation — it writes real rows to `model_evaluation`, `cv_fold_results`, `calibration_bins`, and
+`fairness_significance_tests`. `hiring_bias_model_comparison.ipynb` is the same analysis end to
+end (class-imbalance check, cross-validation, calibration, significance testing) for anyone who
+wants to see the reasoning and code side by side, calling the exact same `pipeline.py` functions
+the DAG does rather than reimplementing any of it. Calibration curves and the CV score
+distribution are real images generated from this exact run, in `docs/evidence/`. Full numbers and
+known limitations: `docs/model_card.md`.
 
 ## Power BI
 
