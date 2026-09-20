@@ -34,8 +34,9 @@ docker compose exec airflow-scheduler airflow dags unpause hiring_bias_pipeline
 docker compose exec airflow-scheduler airflow dags trigger hiring_bias_pipeline
 ```
 
-Dashboard's up at http://localhost:8503 a few minutes after the DAG finishes.
-`docker compose down` stops everything without losing data.
+Live public dashboard: https://ai-hiring-bias-detector.streamlit.app/ (reads from a shared cloud
+database, not this local stack). Your own local run's dashboard is up at http://localhost:8503 a
+few minutes after the DAG finishes. `docker compose down` stops everything without losing data.
 
 ## The pipeline
 
